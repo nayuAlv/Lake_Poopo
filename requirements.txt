@@ -1,0 +1,18 @@
+# Core data analysis
+pandas>=2.0
+numpy>=1.24
+xarray>=2024.1
+netCDF4>=1.6
+
+# Visualization
+matplotlib>=3.8
+
+# Climate data access
+cdsapi>=0.7
+
+# Google Earth Engine
+earthengine-api>=0.1.400
+
+# Notebook tooling (optional but recommended)
+jupytext>=1.16
+jupyter>=1.0

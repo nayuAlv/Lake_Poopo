@@ -1,0 +1,52 @@
+# ── Python ────────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg
+*.egg-info/
+dist/
+build/
+*.so
+.eggs/
+
+# Virtual environments
+.venv/
+venv/
+env/
+.conda/
+
+# ── Jupyter ────────────────────────────────────────────────────────────────────
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# ── Raw data (re-downloadable from ESA CCI / Copernicus CDS / GEE) ────────────
+data_cci/raw/
+data_cds/raw/
+data_jrc/raw/
+*.nc
+*.h5
+*.hdf5
+*.hdf
+
+# ── macOS ─────────────────────────────────────────────────────────────────────
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# ── IDE / editor ──────────────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# ── Credentials / API keys ────────────────────────────────────────────────────
+.cdsapirc
+*.env
+.env*
+secrets/
+credentials/
+
+# ── Misc ──────────────────────────────────────────────────────────────────────
+*.log
+*.tmp
