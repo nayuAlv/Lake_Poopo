@@ -60,3 +60,33 @@ def extract_variable_timeseries(lake_id, varname, date_range, maskfile, version 
         df = pd.DataFrame({'date': date_vec, varname: data_vec})
         df['date'] = pd.to_datetime(df['date'], format='%Y%m%d')
     return df, units
+
+def daily_to_monthly(df: pd.DataFrame, var: str, min_obs_per_month=3) -> pd.DataFrame:
+    """ Convert a sparse dataframe of a given daily variable into a
+        monthly dataframe.
+    """
+    df["year"] = df["date"].dt.year
+    df["month"] = df["date"].dt.month
+    monthly_counts = df.groupby(["year","month"]).size()
+    complete_months = monthly_counts[monthly_counts >= min_obs_per_month].index
+    df_midx = pd.MultiIndex.from_arrays([df["year"], df["month"]])
+    monthly_df = (
+    df[df_midx.isin(complete_months)]
+    .groupby(["year","month"])[var]
+    .mean()
+    .reset_index()
+    )
+    return monthly_df
+
+def monthly_to_annual(df: pd.DataFrame, var: str, min_obs_per_year=11) -> pd.DataFrame:
+    """Convert a monthly dataframe into an annual one.
+    """
+    annual_counts = df.groupby(["year"]).size()
+    complete_years = annual_counts[annual_counts >= min_obs_per_year].index
+    annual_df = (
+    df[df["year"].isin(complete_years)]
+    .groupby("year")[var]
+    .mean()
+    .reset_index()
+    )
+    return annual_df
