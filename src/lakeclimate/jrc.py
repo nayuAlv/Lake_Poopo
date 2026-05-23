@@ -1,6 +1,17 @@
 import ee 
 import pandas as pd
 import time
+ee.Initialize(project="lake-poopo-climate-2026")
+
+# ID of the dataset containing maps of the location and temporal distribution of surface water from 1984 to 2021 in Google Earth Engine
+jrc_monthly = "JRC/GSW1_4/MonthlyHistory"
+
+# Coordinates for the bounds of a rectagle in which the Lake is contained.
+# Google earth engine uses the format: (min_lon, min_lat, max_lon, max_lat) i.e. (West, South, East, North)
+poopo_area = [-67.50, -19.20, -66.60,-18.30]
+# Defines a rectangular geographic area within Earth engine
+poopo_geom = ee.Geometry.Rectangle(list(poopo_area))
+
 
 
 def query_chunk(chunk_start, chunk_end):
