@@ -1,8 +1,8 @@
 import ee 
 import pandas as pd
 import time
-ee.Initialize(project="lake-poopo-climate-2026")
 
+ee.Initialize(project="lake-poopo-climate-2026")
 # ID of the dataset containing maps of the location and temporal distribution of surface water from 1984 to 2021 in Google Earth Engine
 jrc_monthly = "JRC/GSW1_4/MonthlyHistory"
 
@@ -15,6 +15,11 @@ poopo_geom = ee.Geometry.Rectangle(list(poopo_area))
 
 
 def query_chunk(chunk_start, chunk_end):
+    """
+    Queries the JRC Monthly GLocal Surface Water dataset for a given time chunk
+    and calculates the total surface water area and the valid observation area
+    for Lake Poopó.
+    """
     #Define a collection of monthly global surface water images filtered by time and location
     coll = (ee.ImageCollection(jrc_monthly)
                 .filterDate(chunk_start, chunk_end)
@@ -37,9 +42,9 @@ def query_chunk(chunk_start, chunk_end):
 
     return coll.map(per_image).getInfo()["features"]
 
-def monthly_water_area_km2(start: str, end: str,
-                           chunk_years: int = 2,
-                           max_retries: int = 3) -> pd.DataFrame:
+def monthly_water_area_km2(start, end,
+                           chunk_years = 2,
+                           max_retries = 3):
     """
     Function to extract the monthly surface water extent in m^2
 
